@@ -1,0 +1,114 @@
+
+1. Skeleton: Building a Robust and Reliable Framework for Sustainable Scalability
+   1.1 Architecture Methodology
+      1.1.1 Minimalism: Core principle; everything originates from simplicity
+      1.1.2 Pragmatism: Core principle; explore all approaches to solve problems
+      1.1.3 Pareto Principle: Identify the 20% bottlenecks and apply 80% of effort to resolve them
+      1.1.4 High Cohesion & Low Coupling: Define responsibility boundaries; modular segmentation
+      1.1.5 Interface-Oriented Design: Unified abstraction for strong extensibility
+   1.2 Architecture Diagrams
+      1.2.1 Layered Architecture Diagram: Most commonly used
+      1.2.2 Module Architecture Diagram: Abstraction and relationships among technical modules
+      1.2.3 Sequence Architecture Diagram: Chronological order and data flow
+
+2. Meridians: Efficient Module Communication and High-Speed Data Flow
+   2.1 Load Balancing & Routing
+      2.1.1 Load Balancing Algorithms: Round-robin, weighted round-robin, random, weighted random, hash, consistent hash, etc.
+      2.1.2 Load Balancing Implementations at Various Layers: Network layer (domain names, gateways), RPC layer, database layer, cache layer, CPU layer, connection pools
+   2.2 RPC
+      2.2.1 General Architecture Diagram
+      2.2.2 HTTP Format: Messages typically in JSON text
+      2.2.3 Binary Format: Messages as binary packets
+      2.2.4 Full-Link Grayscale: Services support multiple versions; the call origin selects the desired service version
+   2.3 Network Protocols
+      2.3.1 Text-Based Protocols: e.g., HTTP protocol, Redis protocol
+      2.3.2 Binary Protocols: e.g., Dubbo protocol, gRPC protocol
+      2.3.3 Hybrid Protocols
+   2.4 TCP & IP
+      2.4.1 Simplified Protocol Diagram: IP, TCP, UDP, etc.
+      2.4.2 Segmentation & Reassembly: Data packets—segmentation for sending, reassembly for receiving
+      2.4.3 skbuf: Graceful handling of protocol nesting
+      2.4.4 Stateful vs. Stateless: TCP is stateful; UDP is stateless
+   2.5 Domain Names & DNS
+      2.5.1 Domain Name Resolution Process: Multi-level domain resolution to obtain an IP address
+      2.5.2 DNS Load Balancing: Typically based on client geographic location
+   2.6 Gateways
+      2.6.1 Forward Proxy: Proxies the requesting party
+      2.6.2 Reverse Proxy: Proxies the requested party
+      2.6.3 Security Policies: Risk control, rate limiting, etc.
+   2.7 User Login
+      2.7.1 Token: Temporary login credential with expiration; widely used
+      2.7.2 JWT: JSON-formatted hash; core fields include userId and expireTime
+
+3. Distributed Systems: Core Foundation for High Availability
+   3.1 Distributed Theories
+      3.1.1 CAP Theorem: Consistency, Availability, Partition Tolerance—cannot all be achieved simultaneously
+      3.1.2 BASE Theory: High availability and eventual consistency
+   3.2 Concurrency
+      3.2.1 Concurrency Packages: Include concurrent collections, locks, condition variables, atomic classes, thread pools, and other utilities
+      3.2.2 Threading Models: Single-threaded, multi-threaded
+   3.3 Data Consistency
+      3.3.1 Multi-Write: May cause data overwrites
+      3.3.2 Single-Write: Single-point writes with concurrent reads—core solution
+      3.3.3 Storage Layering: Cache + storage—how to ensure consistency
+   3.4 Replication
+      3.4.1 Importance of Replication: Essential characteristic of distributed systems
+      3.4.2 Replication at Various Layers: Datacenter layer, network layer, gateway layer, application layer, cache layer, storage layer
+   3.5 Ordering
+      3.5.1 Importance of Ordering: Ordering can easily go wrong in distributed environments
+      3.5.2 Sorting: Micro-level—red-black trees, skip lists, balanced trees; macro-level—hash partitioning (e.g., Kafka partition routing)
+      3.5.3 Out-of-Order: Improves concurrency for better performance (e.g., CPU out-of-order execution)
+      3.5.4 Monotonicity: MySQL single-table primary keys monotonically increasing; Kafka single-partition messages sequentially ordered; IM message IDs monotonically increasing
+   3.6 Time
+      3.6.1 Time Zones: GMT+8 format; frontend uses global time zones; backend uniformly uses GMT+0
+      3.6.2 Time Wheel: Hierarchical + indexing; primarily used for timers
+      3.6.3 Distributed Timers: Cron expressions, triggers, executors
+   3.7 Storage
+      3.7.1 Transactions: Single-machine transactions; distributed transactions (2PC, 3PC)
+      3.7.2 Multi-Write: Each replica writes one copy
+      3.7.3 Versioning: MVCC for improved read/write performance
+      3.7.4 Majority Principle: Simplified consensus strategy
+      3.7.5 Common Strategies: Sharding, read/write splitting, hot/cold separation
+
+4. Performance: Faster Speed, Lower Latency, Greater Stability
+   4.1 Compute Models
+      4.1.1 CPU-Intensive: Threads continuously execute code, consuming more CPU
+      4.1.2 I/O-Intensive: Threads wait for I/O completion and yield CPU
+   4.2 Synchronous vs. Asynchronous
+      4.2.1 Synchronous Model: Blocking I/O, blocking RPC
+      4.2.2 Asynchronous Model: Non-blocking I/O, callback-based
+   4.3 The Big Three Performance Optimizers
+      4.3.1 Caching: Multi-level caching—network layer (CDN), application layer (local, external), CPU layer (L1/L2/L3, cache lines)
+      4.3.2 Indexing: Efficient data structures supporting single or batch reads/writes
+      4.3.3 Batching: Merging multiple requests; applicable across layers (e.g., Redis Pipeline)
+   4.4 The Big Three API Stability Guards
+      4.4.1 Rate Limiting: Traffic measurement against thresholds
+      4.4.2 Degradation: Dropping excess requests to protect the system
+      4.4.3 Circuit Breaking: Fast failure on faults to prevent cascading effects
+   4.5 Key Performance Metrics
+      4.5.1 CPU
+      4.5.2 Memory
+      4.5.3 Network
+      4.5.4 Processes
+      4.5.5 Threads
+      4.5.6 Functions
+   4.6 Troubleshooting
+      4.6.1 Low-Level vs. High-Level: Start with a global view at the low level, then drill into high-level logs and functions
+      4.6.2 top: Most commonly used—CPU, memory, processes, threads
+      4.6.3 perf: Deep analysis of function performance
+      4.6.4 Flame Graphs: Visualize function time distribution to locate bottlenecks
+      4.6.5 asyncprofiler: JVM-specific flame graph tool
+      4.6.6 netstat: Network connection and port status analysis
+
+5. Comprehensive Applications
+   5.1 IM Architecture
+      5.1.1 Overall Architecture
+      5.1.2 One-to-One Chat & Group Chat
+      5.1.3 Message ID Generator
+      5.1.4 Message Storage
+      5.1.5 Message Push
+   5.2 RTC Architecture
+      5.2.1 Overall Architecture
+      5.2.2 Room Management
+      5.2.3 Real-Time Streams: Text, Audio, Video
+      5.2.4 Data Forwarding
